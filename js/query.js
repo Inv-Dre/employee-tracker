@@ -1,15 +1,21 @@
 const db = require("../db/connection");
-const query = "SELECT * FROM ?";
+
 
 class Query {
-  viewSect(sect) {
-    db.query(query, sect, function (err, results) {
-      return console.table(results)
+  viewDep(sect) {
+    const query = "SELECT * FROM department";
+    console.log("console logged sect", sect);
+    db.query(query,(err, results) => {
+      if (err) {
+        console.log("Trouble with your query", err);
+        return;
+      }
+      console.table(results);
     });
   }
 
   add(sect) {
-    db.query(query, sect, function (err, results) {
+    db.query(query, sect, (err, results) => {
       console.log(results);
     });
   }
