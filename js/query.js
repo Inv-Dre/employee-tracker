@@ -2,7 +2,7 @@ const db = require("../db/connection");
 
 
 class Query {
-  viewDep(sect) {
+  viewDep() {
     const query = "SELECT * FROM department";
     console.log("console logged sect", sect);
     db.query(query,(err, results) => {
@@ -12,6 +12,10 @@ class Query {
       }
       console.table(results);
     });
+  }
+
+  viewRole() {
+    const query = "SELECT"
   }
 
   add(sect) {
