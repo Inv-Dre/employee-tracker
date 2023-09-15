@@ -15,7 +15,7 @@ class Query {
   }
 
   viewRole() {
-    const query = "SELECT id, title, salary, department_id FROM role JOIN department on department_id = department.id";
+    const query = "SELECT title, salary, department.name AS department_name FROM role JOIN department ON role.department_id = department.id";
     db.query(query, (err,results) => {
       if (err) {
         console.log("Trouble with your query", err);
