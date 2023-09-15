@@ -68,3 +68,5 @@ const employeePrompt = async function () {
 };
 
 employeePrompt();
+
+module.exports = employeePrompt();

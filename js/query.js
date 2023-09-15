@@ -29,13 +29,13 @@ class Query {
   }
 
   viewEmployee() {
-    const query = "SELECT employee.id, first_name, last_name, department_id, role.salary, manager_name FROM employeSELECT employee.id, first_name, last_name, role.title, department.name AS department_name, role.salary, manager_id FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.ide JOIN role ON employee.role_id = role.id";
-    db.query(query,(err,results) => {
+    const query = "SELECT employee.id, first_name, last_name, role.title, department.name AS department_name, role.salary, manager_id FROM employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id";
+    db.query(query, (err,results) => {
       if(err) {
-        console.log("Trouble with your query");
+        console.log("Trouble with your query",err);
         return;
       }
-      console.table(results)
+      console.table(results);
       employeePrompt();
     });
   }
