@@ -37,8 +37,9 @@ const employeePrompt = async function () {
         }
 
         case "view all roles": {
-          ;
-
+          const view = new Query();
+          view.viewRole();
+    
           break;
         }
 
