@@ -1,6 +1,7 @@
 const db = require("../db/connection");
 
 
+
 class Query {
   viewDep() {
     const query = "SELECT * FROM department";
@@ -11,7 +12,7 @@ class Query {
         return;
       }
       console.table(results);
-      employeePrompt();
+     
     });
   }
 
@@ -23,7 +24,7 @@ class Query {
         return;
       }
       console.table(results);
-      employeePrompt();
+     
       return;
     });
   }
@@ -36,7 +37,7 @@ class Query {
         return;
       }
       console.table(results);
-      employeePrompt();
+     
     });
   }
 

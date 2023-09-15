@@ -33,20 +33,21 @@ const employeePrompt = async function () {
           const view = new Query();
         //   const sect = 'department';
           view.viewDep();
+          employeePrompt();
           break;
         }
 
         case "view all roles": {
           const view = new Query();
           view.viewRole();
-    
+          employeePrompt();
           break;
         }
 
         case "view all employees": {
           const view = new Query();
           view.viewEmployee();
-          ;
+          employeePrompt();
           break;
         }
 
@@ -69,4 +70,4 @@ const employeePrompt = async function () {
 
 employeePrompt();
 
-module.exports = employeePrompt();
+
