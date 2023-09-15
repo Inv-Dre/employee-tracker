@@ -44,6 +44,8 @@ const employeePrompt = async function () {
         }
 
         case "view all employees": {
+          const view = new Query();
+          view.viewEmployee();
           ;
           break;
         }
