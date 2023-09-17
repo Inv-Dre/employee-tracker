@@ -73,6 +73,9 @@ const employeePrompt = async function () {
           break;
         }
         case "update an employee role": {
+          const update = new Query;
+          update.updateEmployee();
+          break;
         }
       }
     });

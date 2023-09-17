@@ -234,6 +234,7 @@ class Query {
           const roleId = answer.role_id;
           const managerId = answer.manager_id;
           const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}","${lastName}","${roleId}", "${managerId}")`;
+
           db.query(query, (err, res) => {
             console.log(query);
             if (res) {
@@ -255,6 +256,72 @@ class Query {
         });
     };
     employeePrompt();
+  }
+
+  updateEmployee() {
+    const updatePrompt = function () {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "employee_id",
+            message: "what is the id number of the employee you'd like to update",
+            validate: function (input) {
+              if (input < 0) {
+                console.log("type a positive number");
+              } else {
+                return true;
+              }
+            },
+          },
+          {
+            type: "input",
+            name: "new_role",
+            message: "what the role id of the employees new role?",
+            validate: function (input) {
+              if (input < 0) {
+                console.log("type a positive number");
+              } else {
+                return true;
+              }
+            },
+          },
+          {
+            type: "input",
+            name: "manager_id",
+            message: "what manager id associated with the new role?",
+            validate: function (input) {
+              console.log(input);
+              if (input < 0 || input !== null) {
+                console.log("manager id invalid");
+               
+              }
+              return true;
+            },
+          },
+        ])
+        .then((answer) => {
+          const employeeId = answer.employee_id;
+          const roleId = answer.new_role;
+          const managerId = answer.manager_id;
+
+          const query = `UPDATE employee SET role_id = ${roleId}, manager_id = ${managerId} WHERE id = ${employeeId}; `;
+          db.query(query, (err, res) => {
+            if (res) {
+              db.query("SELECT * FROM employee", (err, res) => {
+                if (err) {
+                  console.log("Problem displaying employee table");
+                } else {
+                  console.table(res);
+                }
+              });
+            } else {
+              console.log("Err Upating Employee table", err);
+            }
+          });
+        });
+    };
+    updatePrompt();
   }
 }
 
