@@ -68,6 +68,8 @@ const employeePrompt = async function () {
         }
 
         case "add an employee": {
+          const add = new Query;
+          add.addEmployee();
           break;
         }
         case "update an employee role": {

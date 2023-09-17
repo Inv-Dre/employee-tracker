@@ -1,7 +1,6 @@
 const db = require("../db/connection");
 const inquirer = require("inquirer");
 
-
 class Query {
   viewDep() {
     const query = "SELECT * FROM department";
@@ -85,11 +84,10 @@ class Query {
                       db.query("SELECT * FROM department", (err, results) => {
                         if (results) {
                           console.table(results);
-                        
                         } else {
-                        console.log("entry can not be null", err);
-                        
-                    }});
+                          console.log("entry can not be null", err);
+                        }
+                      });
                     } else {
                       console.log("Trouble with your query", err);
                       return;
@@ -102,76 +100,162 @@ class Query {
             console.log("Department already exists");
             depFinder();
           }
-          
         });
     };
     depFinder();
   }
 
   addRole() {
-      const rolePrompt = function (){
-        inquirer
-        .prompt([{
-          type:"input",
-          name:"role_name",
-          message:"what role would you like to add"
-        },
-      {
-        type:"input",
-        name:"salary",
-        message:"what salary does this role make?",
-        validate: function (input){
-          console.log("input", input);
-          if(input < 0){
-            console.log("input invalid");
-            rolePrompt();
-          }
+    const rolePrompt = function () {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "role_name",
+            message: "what role would you like to add",
+          },
+          {
+            type: "input",
+            name: "salary",
+            message: "what salary does this role make?",
+            validate: function (input) {
+              console.log("input", input);
+              if (input < 0) {
+                console.log("input invalid");
+                rolePrompt();
+              }
 
-          return true;
-        }
-      },
-      {
-        type:"input",
-        name:"department_id",
-        message:"what is the department id?",
-        validate: function (input){
-          console.log("input", input);
-          if(input < 0){
-            console.log("input invalid");
-            rolePrompt();
-           
-          }
-          return true;
-        }
-      },
-    ])
-    .then((answer) =>{
-      const role = answer.role_name;
-      const salary = answer.salary;
-      const department_id = answer.department_id
-      const query = `INSERT INTO role (title, salary, department_id) VALUES ("${role}","${salary}","${department_id}")`
-      db.query(query,(err,res) => {
-        console.log(query)
-        if(res){
-          db.query("SELECT * FROM role", (err,res) => {
-            if(err){
-              console.log("Trouble showing table after role was added",err);
-            } else{
-            console.table(res);
-            return;
-          }
-
+              return true;
+            },
+          },
+          {
+            type: "input",
+            name: "department_id",
+            message: "what is the department id?",
+            validate: function (input) {
+              console.log("input", input);
+              if (input < 0) {
+                console.log("input invalid");
+                rolePrompt();
+              }
+              return true;
+            },
+          },
+        ])
+        .then((answer) => {
+          const role = answer.role_name;
+          const salary = answer.salary;
+          const department_id = answer.department_id;
+          const query = `INSERT INTO role (title, salary, department_id) VALUES ("${role}","${salary}","${department_id}")`;
+          db.query(query, (err, res) => {
+            console.log(query);
+            if (res) {
+              db.query("SELECT * FROM role", (err, res) => {
+                if (err) {
+                  console.log(
+                    "Trouble showing table after role was added",
+                    err
+                  );
+                } else {
+                  console.table(res);
+                  return;
+                }
+              });
+            } else {
+              console.log("Trouble with Inserting into role", err);
+            }
           });
-        } else {
-        console.log("Trouble with Inserting into role",err)
-      }
-      })
-    })
-      }
-      rolePrompt();
+        });
+    };
+    rolePrompt();
   }
 
+  addEmployee() {
+    const employeePrompt = function () {
+      inquirer
+        .prompt([
+          {
+            type: "input",
+            name: "first_name",
+            message: "whats the employee's first name?",
+            validate: function (input) {
+              console.log("input", input);
+              if (input < 0) {
+                console.log("first name invalid");
+                employeePrompt();
+              }
 
+              return true;
+            },
+          },
+          {
+            type: "input",
+            name: "last_name",
+            message: "whats the employee's last name?",
+            validate: function (input) {
+              console.log("input", input);
+              if (input < 0) {
+                console.log("last name invalid");
+                employeePrompt();
+              }
+
+              return true;
+            },
+          },
+          {
+            type: "input",
+            name: "role_id",
+            message: "what is the role id?",
+            validate: function (input) {
+              if (input < 0) {
+                console.log("role id invalid");
+              } else {
+                return true;
+              }
+            },
+          },
+          {
+            type: "input",
+            name: "manager_id",
+            message: "what is the manager id?",
+            validate: function (input) {
+              console.log(input);
+              if (input < 0 || input !== null) {
+                console.log("manager id invalid");
+                employeePrompt();
+              }
+              return true;
+            },
+          },
+        ])
+        .then((answer) => {
+          const firstName = answer.first_name;
+          const lastName = answer.last_name;
+          const roleId = answer.role_id;
+          const managerId = answer.manager_id;
+          const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${firstName}","${lastName}","${roleId}", "${managerId}")`;
+          db.query(query, (err, res) => {
+            console.log(query);
+            if (res) {
+              db.query("SELECT * FROM employee", (err, res) => {
+                if (err) {
+                  console.log(
+                    "Trouble showing table after employee was added",
+                    err
+                  );
+                } else {
+                  console.table(res);
+                  return;
+                }
+              });
+            } else {
+              console.log("Trouble with Inserting into role", err);
+            }
+          });
+        });
+    };
+    employeePrompt();
+  }
 }
 
 module.exports = Query;
