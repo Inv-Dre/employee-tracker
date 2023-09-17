@@ -2,6 +2,8 @@ const inquirer = require("inquirer");
 
 const Query = require("./query");
 
+
+
 // const connection = require('../db/connection.js')
 
 
@@ -52,10 +54,16 @@ const employeePrompt = async function () {
         }
 
         case "add a department": {
+          const add = new Query();
+          add.addDep();
+          // employeePrompt();
           break;
         }
 
         case "add a role": {
+          const add = new Query();
+          add.addRole();
+          // employeePrompt();
           break;
         }
 
@@ -69,5 +77,7 @@ const employeePrompt = async function () {
 };
 
 employeePrompt();
+
+
 
 
