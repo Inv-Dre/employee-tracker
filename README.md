@@ -16,8 +16,24 @@ The user can view and add departments, employees, roles. The last thing it does 
 1. git clone this in your terminal
 https://github.com/Inv-Dre/employee-tracker.git
 
-2. Open up the folder
+2. Have MySQL Shell
 
-3. Type npm i into your terminal and hit enter
+3. Open up the folder
+
+4. Type npm i into your terminal and hit enter
 
 ## Usage
+
+1. Use mysql -u root -p in terminal
+
+2. Enter in your information
+
+3. change the information in the connection file to match your information
+
+4. Type Source db/schema.sql and hit enter to make your tables
+
+5. Type Source db/seed.sql to fill the tables with information
+
+6. https://drive.google.com/file/d/1atS13K_KFQhcfFYDl__-rpRCW46dJ6ob/view
+
+
