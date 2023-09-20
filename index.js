@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 
-const Query = require("./query");
+const Query = require("./js/query");
 
 
 
